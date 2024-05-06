@@ -72,11 +72,10 @@ const storage = multer.diskStorage({
   });
   const upload = multer({ storage: storage });
 
-  app.post('/upload', upload.single('file'), async (req, res) => {
+app.post('/upload', upload.single('file'), async (req, res) => {
   console.log('upload file is running =',req.file)
   try {
-    const filePath = req.file.path.replace(/\\/g, '/'); // Replacing backslashes with forward slashes
-    const newFile = new File({ url: filePath, type: req.file.mimetype });
+    const newFile = new File({ url: req.file.path, type: req.file.mimetype });
     await newFile.save();
     res.status(201).json({ message: 'File uploaded successfully' });
   } catch (err) {
@@ -84,6 +83,7 @@ const storage = multer.diskStorage({
     res.status(500).json({ message: 'Server error' });
   }
 });
+
 
   app.get('/files', async (req, res) => {
     try {
