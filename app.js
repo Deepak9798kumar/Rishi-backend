@@ -76,7 +76,6 @@ app.post('/upload', upload.single('file'), async (req, res) => {
   console.log('upload file is running =',req.file)
   try {
     const newFile = new File({ url: req.file.path, type: req.file.mimetype });
-    const newFile = new File({ url: newFilePath, type: req.file.mimetype });
     await newFile.save();
     res.status(201).json({ message: 'File uploaded successfully' });
   } catch (err) {
