@@ -73,9 +73,9 @@ const storage = multer.diskStorage({
   const upload = multer({ storage: storage });
 
   app.post('/upload', upload.single('file'), async (req, res) => {
-  console.log('upload file is running =', req.file);
+  console.log('upload file is running =',req.file)
   try {
-    const filePath = req.file.path.replace(/\\/g, '\'); // Replace backslashes with forward slashes
+    const filePath = req.file.path.replace(/\\/g, '/'); // Replacing backslashes with forward slashes
     const newFile = new File({ url: filePath, type: req.file.mimetype });
     await newFile.save();
     res.status(201).json({ message: 'File uploaded successfully' });
